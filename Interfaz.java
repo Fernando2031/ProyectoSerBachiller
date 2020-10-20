@@ -12,30 +12,26 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import Formulario.Preguntas;
+import Formulario.Repuestas;
+import Formulario.Menu;
+import Formulario.GenerarPregunta;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Paulina
  */
 public class Interfaz extends javax.swing.JFrame {
-    public static ArrayList <preguntas> preMate =new ArrayList <>();
-    public static ArrayList <preguntas> preLengua =new ArrayList <>();
-    public static ArrayList <preguntas> preHistoria=new ArrayList <>();
-    public static ArrayList <preguntas> preCiencias =new ArrayList <>();
-    
-    public static ArrayList <respuestas> resMate =new ArrayList <>();
-    public static ArrayList <respuestas> resLengua =new ArrayList <>();
-    public static ArrayList <respuestas> resHistoria =new ArrayList <>();
-    public static ArrayList <respuestas> resCiencias =new ArrayList <>();
-    
+  
     
     
     
 ObjectContainer BASE;
+int count=0;
 int incremental=0;
 int incrementalres=0;
 int matematicas=1;
@@ -56,7 +52,7 @@ int puntaje=0;
        panelciencias.setVisible(false);
        panelhistoria.setVisible(false);
        panelcrear.setVisible(false);
-      
+    
        
     }
 
@@ -73,7 +69,6 @@ int puntaje=0;
         btbsalir = new javax.swing.JButton();
         btblenguaje = new javax.swing.JButton();
         btnagregpregunta = new javax.swing.JButton();
-        btnpreguntas = new javax.swing.JButton();
         panelcrear = new javax.swing.JPanel();
         txtingresarpregunta = new javax.swing.JTextField();
         txtcorrecta = new javax.swing.JTextField();
@@ -93,7 +88,7 @@ int puntaje=0;
         jButton118 = new javax.swing.JButton();
         jButton119 = new javax.swing.JButton();
         jButton120 = new javax.swing.JButton();
-        btncontinuar29 = new javax.swing.JButton();
+        btbverificar2 = new javax.swing.JButton();
         pregunta9H = new javax.swing.JPanel();
         jScrollPane30 = new javax.swing.JScrollPane();
         jTextArea30 = new javax.swing.JTextArea();
@@ -176,7 +171,7 @@ int puntaje=0;
         jButton158 = new javax.swing.JButton();
         jButton159 = new javax.swing.JButton();
         jButton160 = new javax.swing.JButton();
-        btncontinuar39 = new javax.swing.JButton();
+        btbverificar3 = new javax.swing.JButton();
         pregunta9C = new javax.swing.JPanel();
         jScrollPane40 = new javax.swing.JScrollPane();
         jTextArea40 = new javax.swing.JTextArea();
@@ -259,7 +254,7 @@ int puntaje=0;
         jButton78 = new javax.swing.JButton();
         jButton79 = new javax.swing.JButton();
         jButton80 = new javax.swing.JButton();
-        btncontinuar19 = new javax.swing.JButton();
+        btbverificar1 = new javax.swing.JButton();
         pregunta9L = new javax.swing.JPanel();
         jScrollPane20 = new javax.swing.JScrollPane();
         jTextArea20 = new javax.swing.JTextArea();
@@ -334,7 +329,6 @@ int puntaje=0;
         btncontinuar10 = new javax.swing.JButton();
         jLabel40 = new javax.swing.JLabel();
         panelmatematicas = new javax.swing.JPanel();
-        btnverificar = new javax.swing.JButton();
         btbregresar = new javax.swing.JButton();
         pregunta10 = new javax.swing.JPanel();
         jScrollPane11 = new javax.swing.JScrollPane();
@@ -489,21 +483,13 @@ int puntaje=0;
         });
         interfaz.add(btblenguaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 130, 179, 52));
 
-        btnagregpregunta.setText("AgregPregunta");
+        btnagregpregunta.setText("Solucionario");
         btnagregpregunta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnagregpreguntaActionPerformed(evt);
             }
         });
         interfaz.add(btnagregpregunta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
-
-        btnpreguntas.setText("preguntas");
-        btnpreguntas.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnpreguntasActionPerformed(evt);
-            }
-        });
-        interfaz.add(btnpreguntas, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 90, 100, -1));
 
         getContentPane().add(interfaz, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 760, 460));
 
@@ -636,13 +622,13 @@ int puntaje=0;
         });
         pregunta10H.add(jButton120, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 110, -1));
 
-        btncontinuar29.setText("Siguiente");
-        btncontinuar29.addActionListener(new java.awt.event.ActionListener() {
+        btbverificar2.setText("Verificar");
+        btbverificar2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncontinuar29ActionPerformed(evt);
+                btbverificar2ActionPerformed(evt);
             }
         });
-        pregunta10H.add(btncontinuar29, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 270, 120, 30));
+        pregunta10H.add(btbverificar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 260, -1, -1));
 
         panelhistoria.add(pregunta10H, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 690, 370));
 
@@ -706,7 +692,7 @@ int puntaje=0;
         jTextArea29.setText("8)Lea el texto y responda.\n \nLa crisis del cacao ecuatoriano\nAl caer el mercado europeo, las exportaciones de cacao desde Ecuador\n hacia Europa sufrieron una fuerte caída, generando una grave inflación\n que, sumada a las plagas de la ‘monilia’ y la ‘escoba de bruja’ que\n arruinaron las plantaciones, produjo la devaluación de la moneda y la \npérdida de trabajo de miles de personas.\n \nModificado con fines pedagógicos. Recuperado el 03 de septiembre de 2015 en http://www.andes.info.ec/es/noticias/i-guerra-mundial-crisis-cacao-ecuatoriano.html  \n¿Qué proceso histórico mundial produjo estos efectos en Ecuador?\n\n\n\n\n");
         jScrollPane29.setViewportView(jTextArea29);
 
-        pregunta8H.add(jScrollPane29, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 80));
+        pregunta8H.add(jScrollPane29, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 90));
 
         jButton109.setText("Guerra Fría");
         jButton109.addActionListener(new java.awt.event.ActionListener() {
@@ -1134,7 +1120,7 @@ int puntaje=0;
         jTextArea41.setEditable(false);
         jTextArea41.setColumns(20);
         jTextArea41.setRows(5);
-        jTextArea41.setText("100)\tTodos son mecanismos del cuerpo humano que son parte de la defensa \ninmunológica adquirida, excepto:\n");
+        jTextArea41.setText("10)Todos son mecanismos del cuerpo humano que son parte de la defensa \ninmunológica adquirida, excepto:\n");
         jScrollPane41.setViewportView(jTextArea41);
 
         pregunta10C.add(jScrollPane41, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 80));
@@ -1171,13 +1157,13 @@ int puntaje=0;
         });
         pregunta10C.add(jButton160, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 260, -1));
 
-        btncontinuar39.setText("Siguiente");
-        btncontinuar39.addActionListener(new java.awt.event.ActionListener() {
+        btbverificar3.setText("Verificar");
+        btbverificar3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncontinuar39ActionPerformed(evt);
+                btbverificar3ActionPerformed(evt);
             }
         });
-        pregunta10C.add(btncontinuar39, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, 120, 30));
+        pregunta10C.add(btbverificar3, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 310, -1, -1));
 
         panelciencias.add(pregunta10C, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 690, 370));
 
@@ -1238,7 +1224,7 @@ int puntaje=0;
         jTextArea39.setEditable(false);
         jTextArea39.setColumns(20);
         jTextArea39.setRows(5);
-        jTextArea39.setText("69)\t8)Son prácticas que contribuyen a la conservación de la biodiversidad, \nexcepto:");
+        jTextArea39.setText("8)Son prácticas que contribuyen a la conservación de la biodiversidad, \nexcepto:");
         jScrollPane39.setViewportView(jTextArea39);
 
         pregunta8C.add(jScrollPane39, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 130));
@@ -1550,7 +1536,7 @@ int puntaje=0;
         jTextArea33.setEditable(false);
         jTextArea33.setColumns(20);
         jTextArea33.setRows(5);
-        jTextArea33.setText("61)\t2)¿Qué ocurre con las moléculas de un líquido cuando disminuye la \ntemperatura?");
+        jTextArea33.setText("2)¿Qué ocurre con las moléculas de un líquido cuando disminuye la \ntemperatura?");
         jScrollPane33.setViewportView(jTextArea33);
 
         pregunta2C.add(jScrollPane33, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 80));
@@ -1602,7 +1588,7 @@ int puntaje=0;
         jTextArea28.setEditable(false);
         jTextArea28.setColumns(20);
         jTextArea28.setRows(5);
-        jTextArea28.setText("59)\tRelacione la teoría del origen de la vida con el postulado.\n \nTeoría\t \tPostulado\n1.\nQuimiosintética\t a)\tLos primeros compuestos orgánicos se formaron en una \natmósfera primitiva\n2.Panspermia\t b)\tLa vida se formó por una fuerza divina superior\n3.Abiogénesis\t c)\tLas primeras formas vivientes llegaron a nuestro planeta desde el espacio exterior\n4.Creacionismo\t d)\tLa vida surge a partir de cualquier materia no viviente o inerte\n");
+        jTextArea28.setText("1)Relacione la teoría del origen de la vida con el postulado.\n \nTeoría\t \tPostulado\n1.\nQuimiosintética\t a)\tLos primeros compuestos orgánicos se formaron en una \natmósfera primitiva\n2.Panspermia\t b)\tLa vida se formó por una fuerza divina superior\n3.Abiogénesis\t c)\tLas primeras formas vivientes llegaron a nuestro planeta desde el espacio exterior\n4.Creacionismo\t d)\tLa vida surge a partir de cualquier materia no viviente o inerte\n");
         jScrollPane28.setViewportView(jTextArea28);
 
         pregunta1C.add(jScrollPane28, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 620, 130));
@@ -1707,13 +1693,13 @@ int puntaje=0;
         });
         pregunta10L.add(jButton80, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 240, 90, -1));
 
-        btncontinuar19.setText("Siguiente");
-        btncontinuar19.addActionListener(new java.awt.event.ActionListener() {
+        btbverificar1.setText("Verificar");
+        btbverificar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btncontinuar19ActionPerformed(evt);
+                btbverificar1ActionPerformed(evt);
             }
         });
-        pregunta10L.add(btncontinuar19, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 120, 30));
+        pregunta10L.add(btbverificar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 290, -1, -1));
 
         panellenguaje.add(pregunta10L, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 650, 330));
 
@@ -2195,14 +2181,6 @@ int puntaje=0;
         panelmatematicas.setForeground(new java.awt.Color(0, 255, 255));
         panelmatematicas.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnverificar.setText("Verificar");
-        btnverificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnverificarActionPerformed(evt);
-            }
-        });
-        panelmatematicas.add(btnverificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 410, 110, 30));
-
         btbregresar.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         btbregresar.setText("Regresar");
         btbregresar.addActionListener(new java.awt.event.ActionListener() {
@@ -2260,7 +2238,7 @@ int puntaje=0;
                 btbverificarActionPerformed(evt);
             }
         });
-        pregunta10.add(btbverificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 280, -1, -1));
+        pregunta10.add(btbverificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 260, -1, -1));
 
         panelmatematicas.add(pregunta10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 650, 330));
 
@@ -2312,7 +2290,7 @@ int puntaje=0;
                 btncontinuar9ActionPerformed(evt);
             }
         });
-        pregunta9.add(btncontinuar9, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 120, 30));
+        pregunta9.add(btncontinuar9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 120, 30));
 
         panelmatematicas.add(pregunta9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 650, 330));
 
@@ -2364,7 +2342,7 @@ int puntaje=0;
                 btncontinuar8ActionPerformed(evt);
             }
         });
-        pregunta8.add(btncontinuar8, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 290, 120, 30));
+        pregunta8.add(btncontinuar8, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 280, 120, 30));
 
         panelmatematicas.add(pregunta8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 650, 330));
 
@@ -2428,7 +2406,7 @@ int puntaje=0;
         jTextArea7.setText("6)Tres obreros cavan en 24 horas una zanja de 12 m. ¿Cuántos metros \ncavarán en 12 horas 9 obreros?\n\n");
         jScrollPane7.setViewportView(jTextArea7);
 
-        pregunta6.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 614, 60));
+        pregunta6.add(jScrollPane7, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 22, 614, 90));
 
         jButton21.setText("2");
         jButton21.addActionListener(new java.awt.event.ActionListener() {
@@ -2616,7 +2594,7 @@ int puntaje=0;
                 jButton12ActionPerformed(evt);
             }
         });
-        pregunta3.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 235, -1, -1));
+        pregunta3.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(467, 235, 60, -1));
 
         btncontinuar3.setText("Siguiente");
         btncontinuar3.addActionListener(new java.awt.event.ActionListener() {
@@ -2794,6 +2772,47 @@ int puntaje=0;
         pregunta8L.setVisible(false);
         pregunta9L.setVisible(false);
         pregunta10L.setVisible(false);
+        count=0;
+        jButton41.setBackground(Color.white);
+        jButton42.setBackground(Color.white);
+        jButton43.setBackground(Color.white);
+        jButton44.setBackground(Color.white);
+        jButton45.setBackground(Color.white);
+        jButton46.setBackground(Color.white);
+        jButton47.setBackground(Color.white);
+        jButton48.setBackground(Color.white);
+        jButton49.setBackground(Color.white);
+        jButton50.setBackground(Color.white);
+        jButton51.setBackground(Color.white);
+        jButton52.setBackground(Color.white);
+        jButton53.setBackground(Color.white);
+        jButton54.setBackground(Color.white);
+        jButton55.setBackground(Color.white);
+        jButton56.setBackground(Color.white);
+        jButton57.setBackground(Color.white);
+        jButton58.setBackground(Color.white);
+        jButton59.setBackground(Color.white);
+        jButton60.setBackground(Color.white);
+        jButton61.setBackground(Color.white);
+        jButton62.setBackground(Color.white);
+        jButton63.setBackground(Color.white);
+        jButton64.setBackground(Color.white);
+        jButton65.setBackground(Color.white);
+        jButton66.setBackground(Color.white);
+        jButton67.setBackground(Color.white);
+        jButton68.setBackground(Color.white);
+        jButton69.setBackground(Color.white);
+        jButton70.setBackground(Color.white);
+        jButton71.setBackground(Color.white);
+        jButton72.setBackground(Color.white);
+        jButton73.setBackground(Color.white);
+        jButton74.setBackground(Color.white);
+        jButton75.setBackground(Color.white);
+        jButton76.setBackground(Color.white);
+        jButton77.setBackground(Color.white);
+        jButton78.setBackground(Color.white);
+        jButton79.setBackground(Color.white);
+        jButton80.setBackground(Color.white);
     }//GEN-LAST:event_btblenguajeActionPerformed
 
     private void btbmatematicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbmatematicasActionPerformed
@@ -2811,6 +2830,47 @@ int puntaje=0;
         pregunta10.setVisible(false);
         
         interfaz.setVisible(false);
+        count=0;
+        jButton1.setBackground(Color.white);
+        jButton2.setBackground(Color.white);
+        jButton3.setBackground(Color.white);
+        jButton4.setBackground(Color.white);
+        jButton5.setBackground(Color.white);
+        jButton6.setBackground(Color.white);
+        jButton7.setBackground(Color.white);
+        jButton8.setBackground(Color.white);
+        jButton9.setBackground(Color.white);
+        jButton10.setBackground(Color.white);
+        jButton11.setBackground(Color.white);
+        jButton12.setBackground(Color.white);
+        jButton13.setBackground(Color.white);
+        jButton14.setBackground(Color.white);
+        jButton15.setBackground(Color.white);
+        jButton16.setBackground(Color.white);
+        jButton17.setBackground(Color.white);
+        jButton18.setBackground(Color.white);
+        jButton19.setBackground(Color.white);
+        jButton20.setBackground(Color.white);
+        jButton21.setBackground(Color.white);
+        jButton22.setBackground(Color.white);
+        jButton23.setBackground(Color.white);
+        jButton24.setBackground(Color.white);
+        jButton25.setBackground(Color.white);
+        jButton26.setBackground(Color.white);
+        jButton27.setBackground(Color.white);
+        jButton28.setBackground(Color.white);
+        jButton29.setBackground(Color.white);
+        jButton30.setBackground(Color.white);
+        jButton31.setBackground(Color.white);
+        jButton32.setBackground(Color.white);
+        jButton33.setBackground(Color.white);
+        jButton34.setBackground(Color.white);
+        jButton35.setBackground(Color.white);
+        jButton36.setBackground(Color.white);
+        jButton37.setBackground(Color.white);
+        jButton38.setBackground(Color.white);
+        jButton39.setBackground(Color.white);
+        jButton40.setBackground(Color.white);
     }//GEN-LAST:event_btbmatematicasActionPerformed
 
     private void btbhistoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbhistoriaActionPerformed
@@ -2826,6 +2886,47 @@ int puntaje=0;
        pregunta8H.setVisible(false);
        pregunta9H.setVisible(false);
        pregunta10H.setVisible(false);
+       count=0;
+        jButton81.setBackground(Color.white);
+        jButton82.setBackground(Color.white);
+        jButton83.setBackground(Color.white);
+        jButton84.setBackground(Color.white);
+        jButton85.setBackground(Color.white);
+        jButton86.setBackground(Color.white);
+        jButton87.setBackground(Color.white);
+        jButton87.setBackground(Color.white);
+        jButton89.setBackground(Color.white);
+        jButton90.setBackground(Color.white);
+        jButton91.setBackground(Color.white);
+        jButton92.setBackground(Color.white);
+        jButton93.setBackground(Color.white);
+        jButton94.setBackground(Color.white);
+        jButton95.setBackground(Color.white);
+        jButton96.setBackground(Color.white);
+        jButton97.setBackground(Color.white);
+        jButton98.setBackground(Color.white);
+        jButton99.setBackground(Color.white);
+        jButton100.setBackground(Color.white);
+        jButton101.setBackground(Color.white);
+        jButton102.setBackground(Color.white);
+        jButton103.setBackground(Color.white);
+        jButton104.setBackground(Color.white);
+        jButton105.setBackground(Color.white);
+        jButton106.setBackground(Color.white);
+        jButton107.setBackground(Color.white);
+        jButton108.setBackground(Color.white);
+        jButton109.setBackground(Color.white);
+        jButton110.setBackground(Color.white);
+        jButton111.setBackground(Color.white);
+        jButton112.setBackground(Color.white);
+        jButton113.setBackground(Color.white);
+        jButton114.setBackground(Color.white);
+        jButton115.setBackground(Color.white);
+        jButton116.setBackground(Color.white);
+        jButton117.setBackground(Color.white);
+        jButton118.setBackground(Color.white);
+        jButton119.setBackground(Color.white);
+        jButton120.setBackground(Color.white);
        
     }//GEN-LAST:event_btbhistoriaActionPerformed
 
@@ -2842,6 +2943,49 @@ int puntaje=0;
         pregunta8C.setVisible(false);
         pregunta9C.setVisible(false);
         pregunta10C.setVisible(false);
+        
+        count=0;
+        jButton121.setBackground(Color.white);
+        jButton122.setBackground(Color.white);
+        jButton123.setBackground(Color.white);
+        jButton124.setBackground(Color.white);
+        jButton125.setBackground(Color.white);
+        jButton126.setBackground(Color.white);
+        jButton127.setBackground(Color.white);
+        jButton128.setBackground(Color.white);
+        jButton129.setBackground(Color.white);
+        jButton130.setBackground(Color.white);
+        jButton131.setBackground(Color.white);
+        jButton132.setBackground(Color.white);
+        jButton133.setBackground(Color.white);
+        jButton134.setBackground(Color.white);
+        jButton135.setBackground(Color.white);
+        jButton136.setBackground(Color.white);
+        jButton137.setBackground(Color.white);
+        jButton138.setBackground(Color.white);
+        jButton139.setBackground(Color.white);
+        jButton140.setBackground(Color.white);
+        jButton141.setBackground(Color.white);
+        jButton142.setBackground(Color.white);
+        jButton143.setBackground(Color.white);
+        jButton144.setBackground(Color.white);
+        jButton145.setBackground(Color.white);
+        jButton146.setBackground(Color.white);
+        jButton147.setBackground(Color.white);
+        jButton148.setBackground(Color.white);
+        jButton149.setBackground(Color.white);
+        jButton150.setBackground(Color.white);
+        jButton151.setBackground(Color.white);
+        jButton152.setBackground(Color.white);
+        jButton153.setBackground(Color.white);
+        jButton154.setBackground(Color.white);
+        jButton155.setBackground(Color.white);
+        jButton156.setBackground(Color.white);
+        jButton157.setBackground(Color.white);
+        jButton158.setBackground(Color.white);
+        jButton159.setBackground(Color.white);
+        jButton160.setBackground(Color.white);
+        
     }//GEN-LAST:event_btbcienciasActionPerformed
 
     private void btbregresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbregresarActionPerformed
@@ -2850,6 +2994,7 @@ int puntaje=0;
        panelciencias.setVisible(false);
        panelhistoria.setVisible(false);   
        interfaz.setVisible(true);
+       
     }//GEN-LAST:event_btbregresarActionPerformed
 
     private void btbregrear1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbregrear1ActionPerformed
@@ -2858,6 +3003,7 @@ int puntaje=0;
        panelciencias.setVisible(false);
        panelhistoria.setVisible(false);
        interfaz.setVisible(true);
+       count=0;
     }//GEN-LAST:event_btbregrear1ActionPerformed
 
     private void btbregrsar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbregrsar2ActionPerformed
@@ -3011,19 +3157,22 @@ int puntaje=0;
     }//GEN-LAST:event_btncontinuar1ActionPerformed
 
     private void btnagregpreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnagregpreguntaActionPerformed
-panelcrear.setVisible(true);
-interfaz.setVisible(false);
+panelcrear.setVisible(false);
+interfaz.setVisible(true);
 panelciencias.setVisible(false);
 panelhistoria.setVisible(false);
 panellenguaje.setVisible(false);
 panelmatematicas.setVisible(false);
-btbciencias.setVisible(false);
-btbhistoria.setVisible(false);
-btblenguaje.setVisible(false);
-btbmatematicas.setVisible(false);
-btnagregpregunta.setVisible(false);
-
+btbciencias.setVisible(true);
+btbhistoria.setVisible(true);
+btblenguaje.setVisible(true);
+btbmatematicas.setVisible(true);
+btnagregpregunta.setVisible(true);
 btbsalir.setVisible(false);
+Menu men = new Menu();
+men.setVisible(true);
+
+
 
     }//GEN-LAST:event_btnagregpreguntaActionPerformed
 
@@ -3040,7 +3189,6 @@ btblenguaje.setVisible(true);
 btbmatematicas.setVisible(true);
 btnagregpregunta.setVisible(true);
 interfaz.setVisible(true);
-
 btbsalir.setVisible(true);
     }//GEN-LAST:event_regresaramenuActionPerformed
 
@@ -3064,21 +3212,6 @@ txtincorrecta3.setText("");        // TODO add your handling code here:
 txtingresarpregunta.setText("");        // TODO add your handling code here:
     }//GEN-LAST:event_txtingresarpreguntaMouseClicked
 
-    private void btnpreguntasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnpreguntasActionPerformed
-        preguntas p=new preguntas();
-        respuestas r=new respuestas();
-        ObjectSet resul=BASE.get(p);
-        ObjectSet resul1=BASE.get(r);
-        for (int j = 0; resul.size() < 10; j++) {
-            preguntas p1=(preguntas)resul.next();
-            respuestas r1=(respuestas)resul1.next();
-            
-            System.out.println(p1.toString()+"\n"+r1.toString());
-        }
-        
-       
-    }//GEN-LAST:event_btnpreguntasActionPerformed
-
     private void txtingresarpreguntaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtingresarpreguntaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtingresarpreguntaActionPerformed
@@ -3089,14 +3222,18 @@ txtingresarpregunta.setText("");        // TODO add your handling code here:
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
        jButton1.setBackground(Color.green);
-        if(jButton1.isSelected()){
+        if(jButton1.getText().equals("15")){
+            count=count+1;
            jButton1.setBackground(Color.green);
+             
+             
        }else{
            jButton2.setBackground(Color.red);
            jButton3.setBackground(Color.red);
            jButton4.setBackground(Color.red);
+      
         
-       }
+       }System.out.println(count);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -3148,15 +3285,20 @@ jButton3.setBackground(Color.red);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-  jButton6.setBackground(Color.green);
-        if(jButton6.isSelected()){
+  
+        jButton6.setBackground(Color.green);
+        if(jButton6.getText().equals("20")){
+            count=count+1;
            jButton6.setBackground(Color.green);
+            
+            
        }else{
            jButton5.setBackground(Color.red);
            jButton7.setBackground(Color.red);
            jButton8.setBackground(Color.red);
         
-       }        // TODO add your handling code here:
+       }   System.out.println(count); 
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -3215,14 +3357,16 @@ pregunta3.setVisible(true);// TODO add your handling code here:
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
  jButton11.setBackground(Color.green);
-        if(jButton11.isSelected()){
+        if(jButton11.getText().equals("346/125")){
            jButton11.setBackground(Color.green);
+             count=count+1;
        }else{
            jButton9.setBackground(Color.red);
            jButton10.setBackground(Color.red);
            jButton12.setBackground(Color.red);
         
-       }        // TODO add your handling code here:
+       }   System.out.println(count);
+      // TODO add your handling code here:
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
@@ -3280,14 +3424,16 @@ pregunta4.setVisible(true);          // TODO add your handling code here:
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
  jButton16.setBackground(Color.green);
-        if(jButton16.isSelected()){
+        if(jButton16.getText().equals("4)> 46")){
            jButton16.setBackground(Color.green);
+             count=count+1;
        }else{
            jButton13.setBackground(Color.red);
            jButton14.setBackground(Color.red);
            jButton15.setBackground(Color.red);
         
-       }         // TODO add your handling code here:
+       }    System.out.println(count);
+      // TODO add your handling code here:
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void btncontinuar4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar4ActionPerformed
@@ -3333,14 +3479,16 @@ pregunta5.setVisible(true);      // TODO add your handling code here:
 
     private void jButton20ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton20ActionPerformed
      jButton20.setBackground(Color.green);
-        if(jButton20.isSelected()){
+        if(jButton20.getText().equals("6/21")){
            jButton20.setBackground(Color.green);
+           count=count+1;
        }else{
            jButton17.setBackground(Color.red);
            jButton18.setBackground(Color.red);
            jButton19.setBackground(Color.red);
         
-       }        // TODO add your handling code here:
+       }     System.out.println(count);
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton20ActionPerformed
 
     private void btncontinuar5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar5ActionPerformed
@@ -3374,14 +3522,16 @@ pregunta6.setVisible(true);
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
 jButton23.setBackground(Color.green);
-        if(jButton23.isSelected()){
+        if(jButton23.getText().equals("18")){
            jButton23.setBackground(Color.green);
+            count=count+1;
        }else{
            jButton21.setBackground(Color.red);
            jButton22.setBackground(Color.red);
            jButton24.setBackground(Color.red);
         
-       }          // TODO add your handling code here:
+       }
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
@@ -3439,14 +3589,16 @@ pregunta7.setVisible(true);        // TODO add your handling code here:
 
     private void jButton28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton28ActionPerformed
 jButton28.setBackground(Color.green);
-        if(jButton28.isSelected()){
+        if(jButton28.getText().equals("81")){
            jButton28.setBackground(Color.green);
+            count=count+1;
        }else{
            jButton25.setBackground(Color.red);
            jButton26.setBackground(Color.red);
            jButton27.setBackground(Color.red);
         
-       }         // TODO add your handling code here:
+       }
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton28ActionPerformed
 
     private void btncontinuar7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar7ActionPerformed
@@ -3468,14 +3620,16 @@ pregunta8.setVisible(true);        // TODO add your handling code here:
 
     private void jButton30ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton30ActionPerformed
 jButton30.setBackground(Color.green);
-        if(jButton30.isSelected()){
+        if(jButton30.getText().equals("20")){
            jButton30.setBackground(Color.green);
+           count=count+1;
        }else{
            jButton29.setBackground(Color.red);
            jButton31.setBackground(Color.red);
            jButton32.setBackground(Color.red);
         
-       }          // TODO add your handling code here:
+       }     
+       // TODO add your handling code here:
     }//GEN-LAST:event_jButton30ActionPerformed
 
     private void jButton31ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton31ActionPerformed
@@ -3533,14 +3687,16 @@ pregunta9.setVisible(true);        // TODO add your handling code here:
 
     private void jButton35ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton35ActionPerformed
   jButton35.setBackground(Color.green);
-        if(jButton35.isSelected()){
+        if(jButton35.getText().equals("42")){
            jButton35.setBackground(Color.green);
+           count=count+1;
        }else{
            jButton33.setBackground(Color.red);
            jButton34.setBackground(Color.red);
            jButton36.setBackground(Color.red);
         
-       }         // TODO add your handling code here:
+       }   
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton35ActionPerformed
 
     private void jButton36ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton36ActionPerformed
@@ -3562,13 +3718,15 @@ pregunta10.setVisible(true);        // TODO add your handling code here:
 
     private void jButton37ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton37ActionPerformed
        jButton37.setBackground(Color.green);
-        if(jButton37.isSelected()){
+        if(jButton37.getText().equals("3")){
            jButton37.setBackground(Color.green);
+           count=count+1;
        }else{
            jButton38.setBackground(Color.red);
            jButton39.setBackground(Color.red);
            jButton40.setBackground(Color.red);
         
+       
        }  // TODO add your handling code here:
     }//GEN-LAST:event_jButton37ActionPerformed
 
@@ -3607,24 +3765,10 @@ pregunta10.setVisible(true);        // TODO add your handling code here:
         
        }  // TODO add your handling code here:
     }//GEN-LAST:event_jButton40ActionPerformed
-public void verificar(){
-    //int count=0;
-  if(jButton1.isBackgroundSet()){
-     // count=1;
-      JOptionPane.showMessageDialog(null, "Calificacion: 1/10");
-  }else{
-      JOptionPane.showMessageDialog(null, "Calificacion: 0/10");
-  }
-}
-    private void btnverificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnverificarActionPerformed
-        respuestas r=new respuestas();
-        ObjectSet resul1 = BASE.get(r);
-        respuestas r1= (respuestas) resul1.next();
 
-    }//GEN-LAST:event_btnverificarActionPerformed
 
     private void btbverificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbverificarActionPerformed
-verificar();        // TODO add your handling code here:
+JOptionPane.showMessageDialog(null, "Su calificacion es:"+count);       // TODO add your handling code here:
     }//GEN-LAST:event_btbverificarActionPerformed
 
     private void jButton41ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton41ActionPerformed
@@ -3651,7 +3795,8 @@ verificar();        // TODO add your handling code here:
 
     private void jButton43ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton43ActionPerformed
   jButton43.setBackground(Color.green);
-        if(jButton43.isSelected()){
+        if(jButton43.getText().equals("La música es el centro de la vida")){
+            count=count+1;
            jButton43.setBackground(Color.green);
        }else{
            jButton41.setBackground(Color.red);
@@ -3700,7 +3845,8 @@ pregunta2L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton47ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton47ActionPerformed
  jButton47.setBackground(Color.green);
-        if(jButton47.isSelected()){
+        if(jButton47.getText().equals("Es conveniente concentrarse en el futuro antes que en el pasado")){
+            count=count+1;
            jButton47.setBackground(Color.green);
        }else{
            jButton45.setBackground(Color.red);
@@ -3738,7 +3884,8 @@ pregunta3L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton50ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton50ActionPerformed
 jButton50.setBackground(Color.green);
-        if(jButton50.isSelected()){
+        if(jButton50.getText().equals("Felipe")){
+            count=count+1;
            jButton50.setBackground(Color.green);
        }else{
            jButton49.setBackground(Color.red);
@@ -3787,7 +3934,8 @@ pregunta6L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton54ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton54ActionPerformed
  jButton54.setBackground(Color.green);
-        if(jButton54.isSelected()){
+        if(jButton54.getText().equals("Manifestar o dejar traslucir una cualidad o sentimiento")){
+            count=count+1;
            jButton54.setBackground(Color.green);
        }else{
            jButton53.setBackground(Color.red);
@@ -3858,7 +4006,8 @@ pregunta4L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton60ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton60ActionPerformed
 jButton60.setBackground(Color.green);
-        if(jButton60.isSelected()){
+        if(jButton60.getText().equals("Salvaje")){
+            count=count+1;
            jButton60.setBackground(Color.green);
        }else{
            jButton57.setBackground(Color.red);
@@ -3885,7 +4034,8 @@ pregunta5L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton62ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton62ActionPerformed
 jButton62.setBackground(Color.green);
-        if(jButton62.isSelected()){
+        if(jButton62.getText().equals("1,4")){
+            count=count+1;
            jButton62.setBackground(Color.green);
        }else{
            jButton61.setBackground(Color.red);
@@ -3934,7 +4084,8 @@ pregunta7L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton66ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton66ActionPerformed
  jButton66.setBackground(Color.green);
-        if(jButton66.isSelected()){
+        if(jButton66.getText().equals("Presentimiento")){
+            count=count+1;
            jButton66.setBackground(Color.green);
        }else{
            jButton65.setBackground(Color.red);
@@ -3994,7 +4145,8 @@ pregunta8L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton71ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton71ActionPerformed
  jButton71.setBackground(Color.green);
-        if(jButton71.isSelected()){
+        if(jButton71.getText().equals("el sueño, el anhelo y el vuelo imaginario es descartado por los pragmáticos ")){
+            count=count+1;
            jButton71.setBackground(Color.green);
        }else{
            jButton69.setBackground(Color.red);
@@ -4043,7 +4195,8 @@ pregunta9L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton75ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton75ActionPerformed
   jButton75.setBackground(Color.green);
-        if(jButton75.isSelected()){
+        if(jButton75.getText().equals("Biblioteca")){
+            count=count+1;
            jButton75.setBackground(Color.green);
        }else{
            jButton73.setBackground(Color.red);
@@ -4081,7 +4234,9 @@ pregunta10L.setVisible(true);        // TODO add your handling code here:
 
     private void jButton78ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton78ActionPerformed
  jButton78.setBackground(Color.green);
-        if(jButton78.isSelected()){
+        if(jButton78.getText().equals("Inusitado"))
+        {
+            count=count+1;
            jButton78.setBackground(Color.green);
        }else{
            jButton77.setBackground(Color.red);
@@ -4112,13 +4267,10 @@ pregunta10L.setVisible(true);        // TODO add your handling code here:
         }    // TODO add your handling code here:
     }//GEN-LAST:event_jButton80ActionPerformed
 
-    private void btncontinuar19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar19ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncontinuar19ActionPerformed
-
     private void jButton81ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton81ActionPerformed
         jButton81.setBackground(Color.green);
-        if(jButton81.isSelected()){
+        if(jButton81.getText().equals("Cono Sur")){
+            count=count+1;
            jButton81.setBackground(Color.green);
        }else{
            jButton82.setBackground(Color.red);
@@ -4178,7 +4330,8 @@ pregunta2H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton86ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton86ActionPerformed
  jButton86.setBackground(Color.green);
-        if(jButton86.isSelected()){
+        if(jButton86.getText().equals("comunidad - conjunto - hábitat")){
+            count=count+1;
            jButton86.setBackground(Color.green);
        }else{
            jButton85.setBackground(Color.red);
@@ -4228,7 +4381,8 @@ pregunta3H.setVisible(true);
 
     private void jButton90ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton90ActionPerformed
   jButton90.setBackground(Color.green);
-        if(jButton90.isSelected()){
+        if(jButton90.getText().equals("1,4")){
+            count=count+1;
            jButton90.setBackground(Color.green);
        }else{
            jButton89.setBackground(Color.red);
@@ -4277,7 +4431,8 @@ pregunta4H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton94ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton94ActionPerformed
  jButton94.setBackground(Color.green);
-        if(jButton94.isSelected()){
+        if(jButton94.getText().equals("1,5")){
+            count=count+1;
            jButton94.setBackground(Color.green);
        }else{
            jButton93.setBackground(Color.red);
@@ -4315,7 +4470,8 @@ pregunta5H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton97ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton97ActionPerformed
      jButton97.setBackground(Color.green);
-        if(jButton97.isSelected()){
+        if(jButton97.getText().equals("2,4")){
+            count=count+1;
            jButton97.setBackground(Color.green);
        }else{
            jButton98.setBackground(Color.red);
@@ -4375,7 +4531,8 @@ pregunta6H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton102ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton102ActionPerformed
 jButton102.setBackground(Color.green);
-        if(jButton102.isSelected()){
+        if(jButton102.getText().equals("1,4")){
+            count=count+1;
            jButton102.setBackground(Color.green);
        }else{
            jButton101.setBackground(Color.red);
@@ -4435,7 +4592,8 @@ pregunta7H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton111ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton111ActionPerformed
  jButton111.setBackground(Color.green);
-        if(jButton111.isSelected()){
+        if(jButton111.getText().equals("Primera Guerra Mundial")){
+            count=count+1;
            jButton111.setBackground(Color.green);
        }else{
            jButton109.setBackground(Color.red);
@@ -4495,13 +4653,15 @@ pregunta9H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton116ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton116ActionPerformed
   jButton116.setBackground(Color.green);
-        if(jButton116.isSelected()){
+        if(jButton116.getText().equals("expansión - industrialización - agroexportador")){
+            count=count+1;
            jButton116.setBackground(Color.green);
        }else{
            jButton113.setBackground(Color.red);
            jButton114.setBackground(Color.red);
            jButton115.setBackground(Color.red); 
-        }           // TODO add your handling code here:
+        }
+        // TODO add your handling code here:
     }//GEN-LAST:event_jButton116ActionPerformed
 
     private void btncontinuar28ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar28ActionPerformed
@@ -4522,13 +4682,14 @@ pregunta10H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton118ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton118ActionPerformed
 jButton118.setBackground(Color.green);
-        if(jButton118.isSelected()){
+        if(jButton118.getText().equals("1,4")){
+            count=count+1;
            jButton118.setBackground(Color.green);
        }else{
            jButton117.setBackground(Color.red);
            jButton119.setBackground(Color.red);
            jButton120.setBackground(Color.red); 
-        }          // TODO add your handling code here:
+        }         
     }//GEN-LAST:event_jButton118ActionPerformed
 
     private void jButton119ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton119ActionPerformed
@@ -4553,12 +4714,15 @@ jButton118.setBackground(Color.green);
         }  // TODO add your handling code here:
     }//GEN-LAST:event_jButton120ActionPerformed
 
-    private void btncontinuar29ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar29ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncontinuar29ActionPerformed
-
     private void jButton121ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton121ActionPerformed
-       // TODO add your handling code here:
+      jButton121.setBackground(Color.red);
+        if(jButton121.isSelected()){
+           jButton121.setBackground(Color.red);
+       }else{
+           jButton124.setBackground(Color.green);
+           jButton122.setBackground(Color.red);
+           jButton123.setBackground(Color.red); 
+        }      // TODO add your handling code here:
     }//GEN-LAST:event_jButton121ActionPerformed
 
     private void jButton122ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton122ActionPerformed
@@ -4585,7 +4749,8 @@ jButton118.setBackground(Color.green);
 
     private void jButton124ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton124ActionPerformed
  jButton124.setBackground(Color.green);
-        if(jButton124.isSelected()){
+        if(jButton124.getText().equals("1,3")){
+            count=count+1;
            jButton124.setBackground(Color.green);
        }else{
            jButton121.setBackground(Color.red);
@@ -4601,7 +4766,8 @@ pregunta8H.setVisible(true);        // TODO add your handling code here:
 
     private void jButton105ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton105ActionPerformed
       jButton105.setBackground(Color.green);
-        if(jButton105.isSelected()){
+        if(jButton105.getText().equals("1a, 2c, 3d, 4b")){
+            count=count+1;
            jButton105.setBackground(Color.green);
        }else{
            jButton106.setBackground(Color.red);
@@ -4683,7 +4849,8 @@ pregunta2C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton128ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton128ActionPerformed
   jButton128.setBackground(Color.green);
-        if(jButton128.isSelected()){
+        if(jButton128.getText().equals("Permanecen muy juntas y se ordenan")){
+            count=count+1;
            jButton128.setBackground(Color.green);
        }else{
            jButton125.setBackground(Color.red);
@@ -4732,7 +4899,9 @@ jButton130.setBackground(Color.red);
 
     private void jButton132ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton132ActionPerformed
 jButton132.setBackground(Color.green);
-        if(jButton132.isSelected()){
+        if(jButton132.getText().equals("Efecto invernadero")){
+            count=count+1;
+            
            jButton132.setBackground(Color.green);
        }else{
            jButton129.setBackground(Color.red);
@@ -4748,7 +4917,8 @@ pregunta4C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton133ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton133ActionPerformed
       jButton133.setBackground(Color.green);
-        if(jButton133.isSelected()){
+        if(jButton133.getText().equals("Oxidacion")){
+            count=count+1;
            jButton133.setBackground(Color.green);
        }else{
            jButton34.setBackground(Color.red);
@@ -4830,7 +5000,8 @@ pregunta5C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton140ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton140ActionPerformed
     jButton140.setBackground(Color.green);
-        if(jButton140.isSelected()){
+        if(jButton140.getText().equals("El cuerpo genera anticuerpos que matan a este tipo de virus antes de que sigan  multiplicándose ")){
+            count=count+1;
            jButton140.setBackground(Color.green);
        }else{
            jButton137.setBackground(Color.red);
@@ -4857,7 +5028,8 @@ pregunta6C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton142ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton142ActionPerformed
 jButton142.setBackground(Color.green);
-        if(jButton142.isSelected()){
+        if(jButton142.getText().equals("2)	Nuclear fuerte")){
+            count=count+1;
            jButton142.setBackground(Color.green);
        }else{
            jButton141.setBackground(Color.red);
@@ -4895,7 +5067,8 @@ pregunta7C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton145ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton145ActionPerformed
          jButton145.setBackground(Color.green);
-        if(jButton145.isSelected()){
+        if(jButton145.getText().equals("1)	mareas altas en el mar")){
+            count=count+1;
            jButton145.setBackground(Color.green);
        }else{
            jButton146.setBackground(Color.red);
@@ -4977,7 +5150,8 @@ pregunta8C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton152ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton152ActionPerformed
 jButton152.setBackground(Color.green);
-        if(jButton152.isSelected()){
+        if(jButton152.getText().equals("4)	promover la fragmentación de hábitats")){
+            count=count+1;
            jButton152.setBackground(Color.green);
        }else{
            jButton149.setBackground(Color.red);
@@ -5015,7 +5189,8 @@ pregunta9C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton155ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton155ActionPerformed
 jButton155.setBackground(Color.green);
-        if(jButton155.isSelected()){
+        if(jButton155.getText().equals("2,3")){
+            count=count+1;
            jButton155.setBackground(Color.green);
        }else{
            jButton153.setBackground(Color.red);
@@ -5042,7 +5217,8 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
 
     private void jButton157ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton157ActionPerformed
        jButton157.setBackground(Color.green);
-        if(jButton157.isSelected()){
+        if(jButton157.getText().equals("epidermis")){
+            count=count+1;
            jButton157.setBackground(Color.green);
        }else{
            jButton158.setBackground(Color.red);
@@ -5084,9 +5260,17 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
         }      // TODO add your handling code here:
     }//GEN-LAST:event_jButton160ActionPerformed
 
-    private void btncontinuar39ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontinuar39ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btncontinuar39ActionPerformed
+    private void btbverificar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbverificar2ActionPerformed
+JOptionPane.showMessageDialog(null, "Su calificacion es:"+count);          // TODO add your handling code here:
+    }//GEN-LAST:event_btbverificar2ActionPerformed
+
+    private void btbverificar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbverificar1ActionPerformed
+JOptionPane.showMessageDialog(null, "Su calificacion es:"+count);          // TODO add your handling code here:
+    }//GEN-LAST:event_btbverificar1ActionPerformed
+
+    private void btbverificar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btbverificar3ActionPerformed
+JOptionPane.showMessageDialog(null, "Su calificacion es:"+count);          // TODO add your handling code here:
+    }//GEN-LAST:event_btbverificar3ActionPerformed
 
     public void llenarmate(preguntas p, respuestas r){
     ObjectSet resul=BASE.get(p);
@@ -5163,6 +5347,9 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
     private javax.swing.JButton btbregrsar2;
     private javax.swing.JButton btbsalir;
     private javax.swing.JButton btbverificar;
+    private javax.swing.JButton btbverificar1;
+    private javax.swing.JButton btbverificar2;
+    private javax.swing.JButton btbverificar3;
     private javax.swing.JButton btnagregpregunta;
     private javax.swing.JButton btncontinuar1;
     private javax.swing.JButton btncontinuar10;
@@ -5174,7 +5361,6 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
     private javax.swing.JButton btncontinuar16;
     private javax.swing.JButton btncontinuar17;
     private javax.swing.JButton btncontinuar18;
-    private javax.swing.JButton btncontinuar19;
     private javax.swing.JButton btncontinuar2;
     private javax.swing.JButton btncontinuar20;
     private javax.swing.JButton btncontinuar21;
@@ -5185,7 +5371,6 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
     private javax.swing.JButton btncontinuar26;
     private javax.swing.JButton btncontinuar27;
     private javax.swing.JButton btncontinuar28;
-    private javax.swing.JButton btncontinuar29;
     private javax.swing.JButton btncontinuar3;
     private javax.swing.JButton btncontinuar30;
     private javax.swing.JButton btncontinuar31;
@@ -5196,7 +5381,6 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
     private javax.swing.JButton btncontinuar36;
     private javax.swing.JButton btncontinuar37;
     private javax.swing.JButton btncontinuar38;
-    private javax.swing.JButton btncontinuar39;
     private javax.swing.JButton btncontinuar4;
     private javax.swing.JButton btncontinuar5;
     private javax.swing.JButton btncontinuar6;
@@ -5204,8 +5388,6 @@ pregunta10C.setVisible(true);        // TODO add your handling code here:
     private javax.swing.JButton btncontinuar8;
     private javax.swing.JButton btncontinuar9;
     private javax.swing.JButton btnguardarp;
-    private javax.swing.JButton btnpreguntas;
-    private javax.swing.JButton btnverificar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> combomaterias;
     private javax.swing.JPanel interfaz;
